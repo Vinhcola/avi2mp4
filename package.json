@@ -1,0 +1,73 @@
+{
+  "name": "avi2mp4-converter",
+  "version": "1.0.0",
+  "description": "AVI to MP4 Auto Converter - Desktop Application for Medical IT Systems",
+  "main": "main.js",
+  "scripts": {
+    "dev": "concurrently \"cross-env PORT=3333 npm run dev:react\" \"wait-on http://localhost:3333 && electron .\"",
+    "dev:react": "cross-env BROWSER=none react-scripts start",
+    "build": "react-scripts build && electron-builder",
+    "build:react": "react-scripts build",
+    "electron": "electron .",
+    "electron:dev": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "avi",
+    "mp4",
+    "converter",
+    "medical"
+  ],
+  "author": "Medical IT Team",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "concurrently": "^8.2.2",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4",
+    "react-scripts": "5.0.1",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.ffvn.videoautoconvert",
+    "productName": "FFVN Video AutoConvert",
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "build/**/*",
+      "main.js",
+      "preload.js",
+      "ffmpeg/**/*",
+      "electron/assets/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "electron/assets/fujifilm.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
+

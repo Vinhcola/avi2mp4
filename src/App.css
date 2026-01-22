@@ -1,0 +1,370 @@
+/**
+ * Compact Single-Page Layout - Medical IT Utility
+ * 
+ * Design Principles:
+ * - No vertical/horizontal scrolling (fits in one screen)
+ * - Max width: 960px, centered
+ * - Neutral medical blue + white color scheme
+ * - Compact spacing, efficient use of space
+ * - PACS admin tool aesthetic
+ */
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F5F7FA;
+  font-family: 'Segoe UI', 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden; /* Prevent page scrolling */
+}
+
+/* Compact Header - Minimal Height */
+.App-header {
+  background: #042CAC;
+  padding: 12px 20px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.App-header h1 {
+  font-size: 1.4rem;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  margin: 2px 0 0 0;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Main Content - Centered, Max Width 960px */
+.App-main {
+  flex: 1;
+  padding: 16px;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+/* Configuration Section - Single Row Layout */
+.config-section {
+  background: #FFFFFF;
+  border-radius: 6px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+  flex-shrink: 0;
+}
+
+.config-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.config-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.config-item label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.config-value {
+  color: #042CAC;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  background: #F9FAFB;
+  border-radius: 4px;
+  border-left: 2px solid #63A3EC;
+  word-break: break-all;
+  font-weight: 500;
+}
+
+/* Control Section - Inline Layout */
+.control-section {
+  background: #FFFFFF;
+  border-radius: 6px;
+  padding: 12px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+  flex-shrink: 0;
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 24px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-start {
+  background: #34BCAC;
+  color: white;
+}
+
+.btn-start:hover:not(.btn-disabled) {
+  background: #2AA896;
+  box-shadow: 0 2px 4px rgba(52, 188, 172, 0.3);
+}
+
+.btn-stop {
+  background: #6B7280;
+  color: white;
+}
+
+.btn-stop:hover:not(.btn-disabled) {
+  background: #4B5563;
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
+}
+
+.btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #F9FAFB;
+  border-radius: 6px;
+  border: 1px solid #E5E7EB;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-active {
+  background-color: #34BCAC;
+  box-shadow: 0 0 6px rgba(52, 188, 172, 0.5);
+}
+
+.status-inactive {
+  background-color: #9CA3AF;
+}
+
+.status-text {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+/* Log Section - Fixed Height, Scroll Inside */
+.log-section {
+  background: #FFFFFF;
+  border-radius: 6px;
+  padding: 12px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0; /* Allow flex child to shrink */
+  overflow: hidden; /* Prevent section from expanding */
+}
+
+.log-section h2 {
+  color: #042CAC;
+  margin: 0 0 8px 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #E5E7EB;
+  padding-bottom: 6px;
+}
+
+.log-panel {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #1F2937;
+  border-radius: 4px;
+  padding: 10px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  min-height: 0; /* Allow scrolling */
+}
+
+.log-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.log-panel::-webkit-scrollbar-track {
+  background: #111827;
+  border-radius: 3px;
+}
+
+.log-panel::-webkit-scrollbar-thumb {
+  background: #4B5563;
+  border-radius: 3px;
+}
+
+.log-panel::-webkit-scrollbar-thumb:hover {
+  background: #6B7280;
+}
+
+.log-empty {
+  color: #9CA3AF;
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+  font-size: 0.8rem;
+}
+
+.log-entry {
+  margin-bottom: 4px;
+  padding: 4px 6px;
+  display: flex;
+  gap: 8px;
+  word-wrap: break-word;
+}
+
+.log-timestamp {
+  color: #9CA3AF;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.log-level {
+  font-weight: 600;
+  flex-shrink: 0;
+  min-width: 60px;
+  font-size: 0.7rem;
+}
+
+.log-message {
+  flex: 1;
+  font-weight: 400;
+}
+
+.log-info .log-level {
+  color: #63A3EC;
+}
+
+.log-success .log-level {
+  color: #34BCAC;
+}
+
+.log-warning .log-level {
+  color: #FBBF24;
+}
+
+.log-error .log-level {
+  color: #F87171;
+}
+
+.log-info .log-message {
+  color: #E0E7FF;
+}
+
+.log-success .log-message {
+  color: #D1FAE5;
+}
+
+.log-warning .log-message {
+  color: #FEF3C7;
+}
+
+.log-error .log-message {
+  color: #FEE2E2;
+}
+
+/* Responsive Adjustments for 1366×768 */
+@media (max-width: 1366px) {
+  .App-main {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .config-row {
+    gap: 12px;
+  }
+
+  .config-value {
+    font-size: 0.8rem;
+  }
+
+  .log-section h2 {
+    font-size: 0.8rem;
+  }
+
+  .log-panel {
+    font-size: 0.7rem;
+  }
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 1024px) {
+  .config-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .control-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .button-group {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .btn {
+    flex: 1;
+  }
+
+  .status-indicator {
+    justify-content: center;
+  }
+}
+
+/* Ensure no overflow on any screen size */
+@media (max-height: 768px) {
+  .log-panel {
+    max-height: 180px;
+  }
+}
