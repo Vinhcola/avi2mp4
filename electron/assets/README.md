@@ -30,3 +30,4 @@ If `fujifilm.ico` is not found, the application will attempt to use `icon.ico` a
 - The icon will be bundled into the .exe during the build process
 - For best results, use a professional icon editor to create multi-resolution ICO files
 
+

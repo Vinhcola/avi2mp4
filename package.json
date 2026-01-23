@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"cross-env PORT=3333 npm run dev:react\" \"wait-on http://localhost:3333 && electron .\"",
     "dev:react": "cross-env BROWSER=none react-scripts start",
-    "build": "react-scripts build && electron-builder",
+    "build": "react-scripts build && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder",
     "build:react": "react-scripts build",
     "electron": "electron .",
     "electron:dev": "electron ."
@@ -37,8 +37,9 @@
   "build": {
     "appId": "com.ffvn.videoautoconvert",
     "productName": "FFVN Video AutoConvert",
+    "extends": null,
     "directories": {
-      "buildResources": "build"
+      "output": "dist"
     },
     "files": [
       "build/**/*",
@@ -46,12 +47,16 @@
       "preload.js",
       "ffmpeg/**/*",
       "electron/assets/**/*",
-      "node_modules/**/*"
+      "package.json",
+      "!node_modules/**/*"
     ],
     "win": {
-      "target": "nsis",
-      "icon": "electron/assets/fujifilm.ico"
+      "target": "dir",
+      "icon": "electron/assets/fujifilm.ico",
+      "sign": false,
+      "verifyUpdateCodeSignature": false
     },
+    "forceCodeSigning": false,
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
