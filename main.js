@@ -195,6 +195,17 @@ async function getAviFiles() {
 }
 
 /**
+ * Escape path for Windows command line (quote paths with spaces/special chars)
+ * @param {string} filePath - File path to escape
+ * @returns {string} Escaped file path
+ */
+function escapePath(filePath) {
+  // Quote the path to handle spaces and special characters
+  // Replace any existing quotes and wrap in double quotes
+  return `"${filePath.replace(/"/g, '\\"')}"`;
+}
+
+/**
  * Convert AVI file to MP4 using ffmpeg
  * @param {string} inputPath - Path to input AVI file
  * @returns {Promise<string>} Path to output MP4 file
@@ -203,21 +214,25 @@ async function convertAviToMp4(inputPath) {
   const fileName = path.basename(inputPath, '.avi');
   const outputPath = path.join(CONFIG.OUTPUT_FOLDER, `${fileName}.mp4`);
 
-  // Build ffmpeg command
+  // Build ffmpeg command with escaped paths
   const args = [...CONFIG.FFMPEG_ARGS];
   const inputIndex = args.indexOf('-i') + 1;
   const outputIndex = args.length - 1;
   
-  args[inputIndex] = inputPath;
-  args[outputIndex] = outputPath;
+  // Escape paths to handle Vietnamese characters and special characters
+  args[inputIndex] = escapePath(inputPath);
+  args[outputIndex] = escapePath(outputPath);
 
-  const command = `${CONFIG.FFMPEG_PATH} ${args.join(' ')}`;
+  // Escape ffmpeg path as well
+  const escapedFfmpegPath = escapePath(CONFIG.FFMPEG_PATH);
+  const command = `${escapedFfmpegPath} ${args.join(' ')}`;
 
   sendLog('info', `Starting conversion: ${path.basename(inputPath)} → ${path.basename(outputPath)}`);
 
   try {
     const { stdout, stderr } = await execAsync(command, {
-      maxBuffer: 10 * 1024 * 1024 // 10MB buffer for ffmpeg output
+      maxBuffer: 10 * 1024 * 1024, // 10MB buffer for ffmpeg output
+      encoding: 'utf8' // Ensure UTF-8 encoding for proper character handling
     });
 
     // Check if output file was created
