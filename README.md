@@ -1,4 +1,4 @@
-# FFVN Video AutoConvert
+# A2M Video AutoConvert
 
 Desktop application built with Electron + React for automatic AVI to MP4 conversion for medical IT systems (Medical IT Utility).
 
